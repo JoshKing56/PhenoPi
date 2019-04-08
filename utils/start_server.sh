@@ -4,4 +4,4 @@ do
 	echo "waiting"
 done
 
-firefox "127.0.0.1:5000"
+chromium-browser --kiosk "127.0.0.1:5000"
