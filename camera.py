@@ -1,7 +1,7 @@
 from picamera import PiCamera
 from time import sleep
 
-def captureImage(waitTime = 2, savePath):
+def captureImage(waitTime, savePath):
     camera = PiCamera()
 
     camera.start_preview()
@@ -12,4 +12,4 @@ def captureImage(waitTime = 2, savePath):
     camera.capture(savePath)
     camera.stop_preview()
 
-captureImage(waitTime = 2, savePath = "~/Pictures/phenopi-data")
+captureImage(2, "/home/pi/Pictures/plant_data/test.png")
