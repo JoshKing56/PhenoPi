@@ -23,3 +23,11 @@ The camera uses the standard picamera python library
 These bash scripts automate things around booting the raspberry pi. Things it does:
 * Update the code automatically from github
 * start the gui
+
+# Resources
+
+https://projects.raspberrypi.org/en/projects/getting-started-with-picamera/5
+https://picamera.readthedocs.io/en/release-1.13/
+https://stackoverflow.com/questions/36283347/raspberry-pi-camera-out-of-resources
+https://pypi.org/project/piexif/
+https://python-xmp-toolkit.readthedocs.io/en/latest/using.html
