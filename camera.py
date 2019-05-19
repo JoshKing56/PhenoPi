@@ -12,4 +12,6 @@ def captureImage(waitTime, savePath):
     camera.capture(savePath)
     camera.stop_preview()
 
-captureImage(2, "/home/pi/Pictures/plant_data/test.png")
+for i in range(1, 10, 0.5):
+    captureImage(i, "/home/pi/Pictures/plant_data/%s.png" % i)
+    
