@@ -5,7 +5,7 @@ from datetime import datetime
 camera = PiCamera()
 
 waitTime = 2
-outDirectory =  "/home/pi/Pictures/plant_data/"
+outDirectory =  "plant_data/"
 
 def captureImage():
     timeStamp = str(datetime.now()) #TODO: Make this better for capturing
