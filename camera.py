@@ -1,24 +1,23 @@
 #from picamera import PiCamera
 from time import sleep
 from datetime import datetime
+import os
 
 #camera = PiCamera()
 
 waitTime = 2
-outDirectory =  "plant_data/"
 
 def setupDirectory(parentDir):
-    if(os.path.exists(parentDir)):
+    print(parentDir)
+    if not os.path.exists(parentDir):
         print("Parent directory not found")
         return()
     else:
-        print("got here")
-        #timeStamp = str(datetime.now()) #TODO: Make this better for capturing
-        print(timeStamp)
-        fullPath = parentDir + "/" timeStamp
+        timeStamp = str(datetime.now()) #TODO: Make this better for capturing
+        fullPath = parentDir + "/" + timeStamp
         if not os.path.exists(fullPath):
-            os.makedirs(parentDir + "/" timeStamp)
-            return(parentDir + "/" timeStamp)
+            os.makedirs(fullPath)
+            return(fullPath)
 
 def captureImage():
     outFile = outDirectory + timeStamp + ".png"
@@ -30,5 +29,6 @@ def captureImage():
     camera.capture(outDirectory)
     camera.stop_preview()
 
-setupDirectory("/home/josh/Pictures/phenopi/")
+outDirectory = "/home/pi/Pictures/plant_data"
+print(setupDirectory(outDirectory))
 #captureImage()
