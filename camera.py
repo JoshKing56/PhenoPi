@@ -1,19 +1,24 @@
-#from picamera import PiCamera
+from picamera import PiCamera
 from time import sleep
 from datetime import datetime
+import yaml
 import os
 
-#camera = PiCamera()
+camera = PiCamera()
 
 waitTime = 2
+remoteName = "gdrive"
 
-def setupDirectory(parentDir):
+user = "Josh"
+species = "Barley"
+plant = 5
+
+def setupLocalDir(parentDir, timeStamp):
     print(parentDir)
     if not os.path.exists(parentDir):
         print("Parent directory not found")
         return()
     else:
-        timeStamp = str(datetime.now()) #TODO: Make this better for capturing
         fullPath = parentDir + "/" + timeStamp
         if not os.path.exists(fullPath):
             os.makedirs(fullPath)
@@ -28,7 +33,25 @@ def captureImage():
     sleep(waitTime)
     camera.capture(outDirectory)
     camera.stop_preview()
+    return outFile
+
+def generateMetaData(timeStamp, filename):
+    output = {'User': user, "Plant species": species, "Plant Number": plant, "Picture taken": timeStamp}
+    with open(filename, 'w') as outfile:
+    yaml.dump(output, outfile, default_flow_style=False)
+
+def uploadData(fileName, remoteDirectory):
+   os.system("rclone copy {file}, {remote}:{remoteDir}".format(file=fileName, remote=remoteName, remoteDir=remoteDirectory))
 
 outDirectory = "/home/pi/Pictures/plant_data"
-print(setupDirectory(outDirectory))
+timeStamp = str(datetime.now().strftime('%Y-%m-%d_%H_%M_%S')) #TODO: Make this better for capturing
+
+setupLocalDir(outDirectory, timeStamp)
+generateMetaData(timeStamp, 'info.yml')
+infoPath = outDirectory + 'info.yml'
+imagePath = outDirectory + captureImage()
+
+uploadData(imageName, timeStamp)
+uploadData(infoPath, timeStamp)
+
 #captureImage()
