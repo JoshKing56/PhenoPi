@@ -22,36 +22,35 @@ def setupLocalDir(parentDir, timeStamp):
         fullPath = parentDir + "/" + timeStamp
         if not os.path.exists(fullPath):
             os.makedirs(fullPath)
-            return(fullPath)
+            return(fullPath + "/")
 
-def captureImage():
+def captureImage(outDirectory, timeStamp):
     outFile = outDirectory + timeStamp + ".png"
     camera.start_preview()
     # need to sleep for at least two seconds to make sure sensors adjust
     # TODO: test to see if this is right
     # TODO: pass this value as a param
     sleep(waitTime)
-    camera.capture(outDirectory)
+    camera.capture(outFile)
     camera.stop_preview()
     return outFile
 
 def generateMetaData(timeStamp, filename):
     output = {'User': user, "Plant species": species, "Plant Number": plant, "Picture taken": timeStamp}
     with open(filename, 'w') as outfile:
-    yaml.dump(output, outfile, default_flow_style=False)
+        yaml.dump(output, outfile, default_flow_style=False)
 
-def uploadData(fileName, remoteDirectory):
-   os.system("rclone copy {file}, {remote}:{remoteDir}".format(file=fileName, remote=remoteName, remoteDir=remoteDirectory))
+def uploadData(source, dest):
+    rclone = "rclone copy " + source + " " + remoteName + ":" + dest 
+    os.system(rclone)
 
-outDirectory = "/home/pi/Pictures/plant_data"
-timeStamp = str(datetime.now().strftime('%Y-%m-%d_%H_%M_%S')) #TODO: Make this better for capturing
+outDirectory = timeStamp = str(datetime.now().strftime('%Y-%m-%d_%H_%M_%S')) #TODO: Make this better for capturing
+print(timeStamp)
 
-setupLocalDir(outDirectory, timeStamp)
-generateMetaData(timeStamp, 'info.yml')
-infoPath = outDirectory + 'info.yml'
-imagePath = outDirectory + captureImage()
+localDir = setupLocalDir("/home/pi/Pictures/plant_data", timeStamp)
+infoPath = localDir + 'info.yml'
+generateMetaData(timeStamp, infoPath)
+imagePath = captureImage(localDir, timeStamp)
 
-uploadData(imageName, timeStamp)
-uploadData(infoPath, timeStamp)
-
-#captureImage()
+remoteDir = "Phenotyping/plant_data/" + timeStamp
+uploadData(localDir, remoteDir)
