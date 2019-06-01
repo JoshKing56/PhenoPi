@@ -20,6 +20,7 @@ def setupLocalDir(parentDir, timeStamp):
 
 
 def takePicture(outDirectory, timeStamp):
+    picam = PiCamera()
     outFile = outDirectory + timeStamp + ".png"
     picam.start_preview()
     # TODO: Document this behavior: need to sleep for at least two seconds to make sure sensors adjust
@@ -27,6 +28,7 @@ def takePicture(outDirectory, timeStamp):
     sleep(waitTime)
     picam.capture(outFile)
     picam.stop_preview()
+    picam = None
     return outFile
 
 

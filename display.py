@@ -4,8 +4,6 @@ from wtforms import TextField, SubmitField
 from wtforms import validators, ValidationError
 import camera
 
-picam = PiCamera()
-
 app = Flask(__name__)
 
 class MetaDataForm(Form):
