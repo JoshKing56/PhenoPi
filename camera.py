@@ -24,8 +24,7 @@ def setupLocalDir(parentDir, timeStamp):
 def takePicture(outDirectory, timeStamp):
     outFile = outDirectory + timeStamp + ".png"
     camera.start_preview()
-    # need to sleep for at least two seconds to make sure sensors adjust
-    # TODO: test to see if this is right
+    # TODO: Document this behavior: need to sleep for at least two seconds to make sure sensors adjust
     # TODO: pass this value as a param
     sleep(waitTime)
     camera.capture(outFile)
@@ -34,7 +33,6 @@ def takePicture(outDirectory, timeStamp):
 
 
 def generateMetaData(metadata, timeStamp, filename):
-    #output = {'User': user, "Plant species": species, "Plant Number": plant, "Picture taken": timeStamp}
     metadata["Picture taken"] = timeStamp
     with open(filename, 'w') as outfile:
         yaml.dump(metadata, outfile, default_flow_style=False)
@@ -46,16 +44,15 @@ def uploadData(source, dest):
 
 
 def captureImage(metadata):
-    outDirectory = timeStamp = str(datetime.now().strftime(
-        '%Y-%m-%d_%H_%M_%S'))  # TODO: Make this better for capturing
+    timeStamp = str(datetime.now().strftime('%Y-%m-%d_%H_%M_%S'))
     print(timeStamp)
 
     localDir = setupLocalDir("/home/pi/Pictures/plant_data", timeStamp)
     infoPath = localDir + 'info.yml'
     generateMetaData(metadata, timeStamp, infoPath)
-    imagePath = takePicture(localDir, timeStamp)
+    takePicture(localDir, timeStamp)
 
     remoteDir = "Phenotyping/plant_data/" + timeStamp
     uploadData(localDir, remoteDir)
-
-    return(remoteDir)
+    return("Success") #TODO: Improve this to have a better return feedback
+    
