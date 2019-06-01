@@ -4,7 +4,6 @@
 <br>
 <p></p>
 <form action="http://localhost:5000/display.html" method="post" novalidate>
-  {{ form.hidden_tag() }}
   <div class="form-group">
     {{ form.user.label }}<br>
     {{ form.username(size=32, class_="form-control") }}
