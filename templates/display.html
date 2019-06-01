@@ -1,13 +1,30 @@
 {% extends "layout.html" %}
 {% block content %}
-  <h3>Session info>:</h3>
-  <br>
-  <p></p>
-  <p>Loop through the list:</p>
-  <ul>
-    {% for n in my_list %}
-    <li>{{n}}</li>
-    {% endfor %}
-  </ul>
-  <h3> This is the end of my child template</h3>
+<h3>Fill in session info to capture image:</h3>
+<br>
+<p></p>
+<form action="http://localhost:5000/display.html" method="post" novalidate>
+  {{ form.hidden_tag() }}
+  <div class="form-group">
+    {{ form.user.label }}<br>
+    {{ form.username(size=32, class_="form-control") }}
+
+  </div>
+  <div class="form-group">
+    {{ form.species.label }}<br>
+    {{ form.species(size=32, class_="form-control") }}
+  </div>
+
+  <div class="form-group">
+    {{ form.plant.label }}<br>
+    {{ form.plant((size=32, class_="form-control") }}
+
+  </div>
+  <div class="form-group">
+    {{ form.experiment.label }}<br>
+    {{ form.experiment((size=32, class_="form-control") }}
+  </div>
+  <p>{{ form.submit(class_=) }}</p>
+  </div>
+</form>
 {% endblock %}
