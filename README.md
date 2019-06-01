@@ -9,6 +9,9 @@ The following are dependencies for this project:
 ### Python #TODO: See if I can use python 3.6
 * Flask
 * picamera
+* pyyaml
+* wtf-flask
+* wtforms
 
 
 ## Setting up the pi

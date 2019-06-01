@@ -4,8 +4,6 @@ from datetime import datetime
 import yaml
 import os
 
-camera = PiCamera()
-
 waitTime = 2
 remoteName = "gdrive"
 
@@ -23,12 +21,12 @@ def setupLocalDir(parentDir, timeStamp):
 
 def takePicture(outDirectory, timeStamp):
     outFile = outDirectory + timeStamp + ".png"
-    camera.start_preview()
+    picam.start_preview()
     # TODO: Document this behavior: need to sleep for at least two seconds to make sure sensors adjust
     # TODO: pass this value as a param
     sleep(waitTime)
-    camera.capture(outFile)
-    camera.stop_preview()
+    picam.capture(outFile)
+    picam.stop_preview()
     return outFile
 
 
@@ -54,5 +52,5 @@ def captureImage(metadata):
 
     remoteDir = "Phenotyping/plant_data/" + timeStamp
     uploadData(localDir, remoteDir)
-    return("Success") #TODO: Improve this to have a better return feedback
+    return("Success") #TODO: Improve this
     
