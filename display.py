@@ -3,7 +3,7 @@ from flask_wtf import Form
 from wtforms import TextField, SubmitField
 from wtforms import validators, ValidationError
 import os
-# import camera
+import camera
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(32)
