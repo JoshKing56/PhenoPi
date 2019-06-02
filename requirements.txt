@@ -1,6 +1,6 @@
 # Camera.py
 picamera
-yaml
+pyyaml
 
 # Display.py
 flask
