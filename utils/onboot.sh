@@ -23,5 +23,5 @@ fi
 
 cd $PROJROOT
 
-python3 ~/Documents/PhenoPi/display.py 
+python3 ~/Documents/PhenoPi/display.py &
 bash start_server.sh 2&>1 /dev/null
