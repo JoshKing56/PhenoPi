@@ -11,6 +11,7 @@ If you have any questions, feel free to contact me at joshua.king@ucdconnect.ie.
 2. Automatic syncing with google drive
 3. Metadata recording + hashing
 4. Multi camera support (TODO)
+5. Auto-updating: every push to master updates the code
 
 ## How to use:
 1. Boot up the device (plugging it in
