@@ -6,6 +6,18 @@ This repo contains all of the code that makes the PhenoPi phenotyping rig work. 
 
 If you have any questions, feel free to contact me at joshua.king@ucdconnect.ie. 
 
+## Features
+1. Easy to use web based interface
+2. Automatic syncing with google drive
+3. Metadata recording + hashing
+4. Multi camera support (TODO)
+
+## How to use:
+1. Boot up the device (plugging it in
+2. Launch script on desktop
+3. Modify information on screen if necessary, click "take picture"
+4. Check google drive to confirm file is there
+
 ## Dependencies
 The following are dependencies for this project:
 ### Python #TODO: See if I can use python 3.6
