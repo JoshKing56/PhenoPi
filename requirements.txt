@@ -1,0 +1,8 @@
+# Camera.py
+picamera
+pyyaml
+
+# Display.py
+flask
+flask_wtf
+wtforms

@@ -1,1 +1,0 @@
-mkdir -p ~/Pictures/phenopi_output
