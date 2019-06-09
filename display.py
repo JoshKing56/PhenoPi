@@ -15,18 +15,17 @@ class MetaDataForm(Form):
     experiment = TextField("Experiment name/number", default = "PhenoPi rig testing")
     submit = SubmitField("Capture picture")
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/")
 def index():
     form = MetaDataForm()
-    name = ""
-    if request.method =="POST":
-        metadata = {'User': form.user.data, "Plant species": form.species.data, "Plant Number": form.plant.data}
-        result = camera.captureImage(metadata) #TODO: Make a trycatch here
     return render_template('display.html', form = form)
 
-@app.route("/picture")
+@app.route("/picture", methods=['GET', 'POST'])
 def takePicture():
-    return render_template('success.html')
+    if request.method =="POST":
+        metadata = {'User': request.form.get('user'), "Plant species": request.form.get('species'), "Plant Number": request.form.get('plant'), "Experiment Number": request.form.get('experiment')}
+        result = camera.captureImage(metadata) 
+        return render_template('success.html', succeded = result)
 
 
 if __name__ == "__main__":
