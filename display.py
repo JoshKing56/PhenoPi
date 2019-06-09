@@ -3,7 +3,7 @@ from flask_wtf import Form
 from wtforms import TextField, SubmitField
 from wtforms import validators, ValidationError
 import os
-# import camera
+import camera
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(32)
@@ -18,7 +18,7 @@ class MetaDataForm(Form):
 @app.route("/")
 def index():
     form = MetaDataForm()
-    return render_template('display.html', form = form)
+    return render_template('display.html', user = "User", form = form)
 
 @app.route("/picture", methods=['GET', 'POST'])
 def takePicture():
