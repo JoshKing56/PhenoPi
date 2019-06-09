@@ -16,7 +16,7 @@ class MetaDataForm(Form):
         genotype = TextField("Plant Genotype", default = " ")
         plant = TextField("ID of the plant", default = " ")
         condition = TextField("Condition", default = " ")
-        submit = SubmitField("Capture picture")
+        submit = SubmitField("Add Experiment")
 
 class AddExpForm(MetaDataForm):
         savename = TextField("Name to save experiment by", default = " ")
@@ -63,6 +63,8 @@ def takePicture():
 @app.route("/addexperiment", methods=['GET', 'POST'])
 def addexp():
     form = AddExpForm()
+    expList = experiments.getExperimentList()
+    
     if request.method == "POST":
         experiment = {
                 'User': request.form.get('user'),
@@ -74,7 +76,7 @@ def addexp():
         }
         savename = request.form.get('savename')
         experiments.addExperiment(savename, experiment)
-	return render_template('display.html', buttons = expList, form = form)
+        return render_template('display.html', buttons = expList, form = form)
     return render_template('addexperiment.html', form = form)
 
 if __name__ == "__main__":
