@@ -54,5 +54,5 @@ def captureImage(metadata):
 
     remoteDir = "Phenotyping/plant_data/" + timeStamp
     uploadData(localDir, remoteDir)
-    return("Success") #TODO: Improve this
+    return(True) #TODO: Improve this
     
