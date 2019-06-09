@@ -35,7 +35,7 @@ def setupLocalDir(parentDir, timeStamp):
 def takePicture(outDirectory):
     picam = PiCamera()
     for cameraNum in range(1,5):
-        outFile = outDirectory + "camera" + cameraNum + ".png"
+        outFile = outDirectory + "camera" + str(cameraNum) + ".png"
         multiCameraCapture.switchCamera(cameraNum)
         picam.start_preview()
         sleep(waitTime)
@@ -64,6 +64,6 @@ def captureImage(metadata):
     takePicture(localDir, timeStamp)
 
     remoteDir = "Phenotyping/plant_data/" + timeStamp
-    uploadData(localDir, remoteDir)
+    uploadData(localDir)
     return(True) #TODO: Improve this
     
