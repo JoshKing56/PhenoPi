@@ -3,6 +3,7 @@ from time import sleep
 from datetime import datetime
 import yaml
 import os
+import multiCameraCapture
 
 waitTime = 2
 remoteName = "gdrive"
@@ -18,19 +19,29 @@ def setupLocalDir(parentDir, timeStamp):
             os.makedirs(fullPath)
             return(fullPath + "/")
 
+# THIS IS THE VERSION OF THE FUNCTION I KNOW WORKS. REMOVE AFTER TESTING
+# def takePicture(outDirectory, timeStamp):
+#     picam = PiCamera()
+#     outFile = outDirectory + timeStamp + ".png"
+#     picam.start_preview()
+#     # TODO: Document this behavior: need to sleep for at least two seconds to make sure sensors adjust
+#     # TODO: pass this value as a param
+#     sleep(waitTime)
+#     picam.capture(outFile)
+#     picam.stop_preview()
+#     picam = None
+#     return outFile
 
-def takePicture(outDirectory, timeStamp):
+def takePicture(outDirectory):
     picam = PiCamera()
-    outFile = outDirectory + timeStamp + ".png"
-    picam.start_preview()
-    # TODO: Document this behavior: need to sleep for at least two seconds to make sure sensors adjust
-    # TODO: pass this value as a param
-    sleep(waitTime)
-    picam.capture(outFile)
-    picam.stop_preview()
+    for cameraNum in range(1,5):
+        outFile = outDirectory + "camera" + cameraNum + ".png"
+        multiCameraCapture.switchCamera(cameraNum)
+        picam.start_preview()
+        sleep(waitTime)
+        picam.capture(outFile)
+        picam.stop_preview()
     picam = None
-    return outFile
-
 
 def generateMetaData(metadata, timeStamp, filename):
     metadata["Picture taken"] = timeStamp
