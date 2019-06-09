@@ -15,8 +15,10 @@ def addExperiment(savename, experimentData):
     with open(filename, 'w+') as outfile:
         yaml.dump(experimentData, outfile, default_flow_style=False)
     explist = getExperimentList()
+    print(explist)
     explist['first'] = explist['second']
     explist['second'] = explist['third']
     explist['third'] = savename
-    with open(filename, 'w+') as outfile:
-        yaml.dump(experimentData, outfile, default_flow_style=False)
+    print(explist)
+    with open("saved_experiments/experimentList.yml", 'w+') as outfile:
+        yaml.dump(explist, outfile, default_flow_style=False)

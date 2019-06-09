@@ -76,7 +76,7 @@ def addexp():
         savename = request.form.get('savename')
         experiments.addExperiment(savename, experiment)
         expList = experiments.getExperimentList()
-        return render_template('display.html', buttons = expList, form = form)
+        return render_template('display.html', buttons = experiments.getExperimentList(), form = MetaDataForm())
 
     return render_template('addexperiment.html', form = form)
 
