@@ -14,10 +14,11 @@ If you have any questions, feel free to contact me at joshua.king@ucdconnect.ie.
 5. Auto-updating: every push to master updates the code
 
 ## How to use:
-1. Boot up the device (plugging it in
-2. Launch script on desktop
-3. Modify information on screen if necessary, click "take picture"
-4. Check google drive to confirm file is there
+1. Boot up the device (plugging it in)
+2. Once you see the desktop, double click the script on the desktop
+3. Click "Execute as script" #TODO Check if this is the correct wording
+4. Modify information on screen if necessary, click "take picture"
+5. Check google drive to confirm file is there
 
 ## Dependencies
 The following are dependencies for this project:
