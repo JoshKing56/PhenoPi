@@ -33,15 +33,15 @@ def setupLocalDir(parentDir, timeStamp):
 #     return outFile
 
 def takePicture(outDirectory):
-    picam = PiCamera()
     for cameraNum in range(1,5):
+        picam = PiCamera()
         outFile = outDirectory + "camera" + str(cameraNum) + ".png"
         multiCameraCapture.switchCamera(cameraNum)
         picam.start_preview()
         sleep(waitTime)
         picam.capture(outFile)
         picam.stop_preview()
-    picam = None
+        picam.close()
 
 def generateMetaData(metadata, timeStamp, filename):
     metadata["Picture taken"] = timeStamp
@@ -61,9 +61,9 @@ def captureImage(metadata):
     localDir = setupLocalDir("/home/pi/Pictures/plant_data", timeStamp)
     infoPath = localDir + 'info.yml'
     generateMetaData(metadata, timeStamp, infoPath)
-    takePicture(localDir, timeStamp)
+    takePicture(localDir)
 
     remoteDir = "Phenotyping/plant_data/" + timeStamp
-    uploadData(localDir)
+    uploadData(localDir, remoteDir)
     return(True) #TODO: Improve this
     
