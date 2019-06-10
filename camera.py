@@ -20,7 +20,7 @@ def setupLocalDir(parentDir, timeStamp):
             return(fullPath + "/")
 
 def takePicture(outDirectory):
-    for cameraNum in range(1,5):
+    for cameraNum in range(1,4):
         outFile = outDirectory + "camera" + str(cameraNum) + ".png"
         multiCameraCapture.switchCamera(cameraNum)
         with PiCamera() as picam:
