@@ -19,19 +19,6 @@ def setupLocalDir(parentDir, timeStamp):
             os.makedirs(fullPath)
             return(fullPath + "/")
 
-# THIS IS THE VERSION OF THE FUNCTION I KNOW WORKS. REMOVE AFTER TESTING
-# def takePicture(outDirectory, timeStamp):
-#     picam = PiCamera()
-#     outFile = outDirectory + timeStamp + ".png"
-#     picam.start_preview()
-#     # TODO: Document this behavior: need to sleep for at least two seconds to make sure sensors adjust
-#     # TODO: pass this value as a param
-#     sleep(waitTime)
-#     picam.capture(outFile)
-#     picam.stop_preview()
-#     picam = None
-#     return outFile
-
 def takePicture(outDirectory):
     for cameraNum in range(1,5):
         picam = PiCamera()
@@ -48,11 +35,9 @@ def generateMetaData(metadata, timeStamp, filename):
     with open(filename, 'w') as outfile:
         yaml.dump(metadata, outfile, default_flow_style=False)
 
-
 def uploadData(source, dest):
     rclone = "rclone copy " + source + " " + remoteName + ":" + dest
     os.system(rclone)
-
 
 def captureImage(metadata):
     timeStamp = str(datetime.now().strftime('%Y-%m-%d_%H_%M_%S'))
@@ -63,7 +48,6 @@ def captureImage(metadata):
     generateMetaData(metadata, timeStamp, infoPath)
     takePicture(localDir)
 
-    remoteDir = "Phenotyping/plant_data/" + timeStamp
+    remoteDir = "Phenotyping/plant_data/" + metadata['experiment'] + "/" + timeStamp
     uploadData(localDir, remoteDir)
-    return(True) #TODO: Improve this
-    
+    return(True)     
