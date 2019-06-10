@@ -23,12 +23,11 @@ def takePicture(outDirectory):
     for cameraNum in range(1,5):
         outFile = outDirectory + "camera" + str(cameraNum) + ".png"
         multiCameraCapture.switchCamera(cameraNum)
-        picam = PiCamera()
-        picam.start_preview()
-        sleep(waitTime)
-        picam.stop_preview()
-        picam.capture(outFile)
-        picam.close()
+	with PiCamera() as picam:
+	    picam.start_preview()
+	    sleep(waitTime)
+	    picam.stop_preview()
+	    picam.capture(outFile)
 
 def generateMetaData(metadata, timeStamp, filename):
     metadata["Picture taken"] = timeStamp
