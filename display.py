@@ -18,6 +18,9 @@ class MetaDataForm(Form):
         condition = TextField("Condition", default = " ")
         submit = SubmitField("Capture picture")
 
+class AddExpForm(MetaDataForm):
+        savename = TextField("Name to save experiment by", default = " ")
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
 	form = MetaDataForm()
@@ -57,6 +60,22 @@ def takePicture():
         result = camera.captureImage(metadata) 
         return render_template('success.html', succeded = result)
 
+@app.route("/addexperiment", methods=['GET', 'POST'])
+def addexp():
+    form = AddExpForm()
+    if request.method == "POST":
+        experiment = {
+                'User': request.form.get('user'),
+                'Experiment Number': request.form.get('experiment'),
+                'Plant Species': request.form.get('species'),
+                'Plant Genotype': request.form.get('genotype'), 
+                'Plant Number': request.form.get('plant'), 
+                'Condition': request.form.get('condition') 
+        }
+        savename = request.form.get('savename')
+        experiments.addExperiment(savename, experiment)
+	return render_template('display.html', buttons = expList, form = form)
+    return render_template('addexperiment.html', form = form)
 
 if __name__ == "__main__":
     app.run(debug=True)
