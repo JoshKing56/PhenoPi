@@ -63,7 +63,6 @@ def takePicture():
 @app.route("/addexperiment", methods=['GET', 'POST'])
 def addexp():
     form = AddExpForm()
-    expList = experiments.getExperimentList()
     
     if request.method == "POST":
         experiment = {
@@ -76,7 +75,9 @@ def addexp():
         }
         savename = request.form.get('savename')
         experiments.addExperiment(savename, experiment)
+        expList = experiments.getExperimentList()
         return render_template('display.html', buttons = expList, form = form)
+
     return render_template('addexperiment.html', form = form)
 
 if __name__ == "__main__":

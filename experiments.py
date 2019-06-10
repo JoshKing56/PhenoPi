@@ -11,7 +11,7 @@ def loadExperiment(experimentNumber):
         return(yaml.load(expfile))
 
 def addExperiment(savename, experimentData):
-    filename = "saved_experiments" + savename + ".yml"
+    filename = "saved_experiments/" + savename + ".yml"
     with open(filename, 'w+') as outfile:
         yaml.dump(experimentData, outfile, default_flow_style=False)
     explist = getExperimentList()
