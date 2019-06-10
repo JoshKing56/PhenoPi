@@ -21,13 +21,13 @@ def setupLocalDir(parentDir, timeStamp):
 
 def takePicture(outDirectory):
     for cameraNum in range(1,5):
-        picam = PiCamera()
         outFile = outDirectory + "camera" + str(cameraNum) + ".png"
         multiCameraCapture.switchCamera(cameraNum)
+        picam = PiCamera()
         picam.start_preview()
         sleep(waitTime)
-        picam.capture(outFile)
         picam.stop_preview()
+        picam.capture(outFile)
         picam.close()
 
 def generateMetaData(metadata, timeStamp, filename):
