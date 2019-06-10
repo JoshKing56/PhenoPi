@@ -48,6 +48,6 @@ def captureImage(metadata):
     generateMetaData(metadata, timeStamp, infoPath)
     takePicture(localDir)
 
-    remoteDir = "Phenotyping/plant_data/" + metadata['experiment'] + "/" + timeStamp
+    remoteDir = "Phenotyping/plant_data/" + metadata['Experiment Data'] + "/" + timeStamp
     uploadData(localDir, remoteDir)
     return(True)     

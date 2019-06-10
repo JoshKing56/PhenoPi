@@ -24,7 +24,6 @@ def index():
 	expList = experiments.getExperimentList() 
   	
 	if request.method == "POST":
-		print("Somehow got here..........")
 		if "first" in request.form:
 			experimentData = experiments.loadExperiment("first")
 
@@ -46,9 +45,7 @@ def index():
 
 @app.route("/picture", methods=['GET', 'POST'])
 def takePicture():
-     print("============= GOT HERE 1  =============")
      if request.method =="POST":
-        print("============= GOT HERE 2 =============")
         metadata = {
                 'User': request.form.get('user'),
                 'Experiment Number': request.form.get('experiment'),
