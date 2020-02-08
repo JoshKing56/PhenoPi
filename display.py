@@ -3,7 +3,7 @@ from flask_wtf import Form
 from wtforms import TextField, SubmitField
 from wtforms import validators, ValidationError
 import os
-import camera
+import assemble_data
 import experiments 
 
 app = Flask(__name__)
@@ -57,7 +57,7 @@ def takePicture():
                 'Plant Number': request.form.get('plant'), 
                 'Condition': request.form.get('condition') 
         }
-        result = camera.captureImage(metadata) 
+        result = assemble_data.captureImage(metadata) 
         return render_template('success.html', succeded = result)
 
 @app.route("/addexperiment", methods=['GET', 'POST'])
