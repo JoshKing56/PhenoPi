@@ -3,21 +3,17 @@ from datetime import datetime
 import yaml
 import os
 import camera_capture 
-waitTime = 2
+
 remoteName = "gdrive"
+image_storage_directory = os.environ['HOME'] + "/Pictures/plant_data"
 
 def setupLocalDir(parentDir, timeStamp):
-    print(parentDir)
-    if not os.path.exists(parentDir):
-        print("Parent directory not found")
-        return()
-    else:
-        fullPath = parentDir + "/" + timeStamp
-        if not os.path.exists(fullPath):
-            os.makedirs(fullPath)
-            return(fullPath + "/")
-
-
+   fullPath = parentDir + "/" + timeStamp
+    #try:
+    if not os.path.exists(fullPath):
+        os.makedirs(fullPath)
+        return(fullPath + "/")
+        
 def generateMetaData(metadata, timeStamp, filename):
     metadata["Picture taken"] = timeStamp
     with open(filename, 'w') as outfile:
@@ -31,7 +27,7 @@ def captureImage(metadata):
     timeStamp = str(datetime.now().strftime('%Y-%m-%d_%H_%M_%S'))
     print(timeStamp)
 
-    localDir = setupLocalDir("/home/pi/Pictures/plant_data", timeStamp)
+    localDir = setupLocalDir(image_storage_directory, timeStamp)
     infoPath = localDir + 'info.yml'
     generateMetaData(metadata, timeStamp, infoPath)
     takePicture(localDir)

@@ -1,5 +1,6 @@
 import os
 running_on_pi = True
+CAMERA_WAIT_TIME = 2
 
 try:
     from picamera import PiCamera
@@ -48,7 +49,7 @@ def takePicture(outDirectory):
             switchCamera(cameraNum)
             with PiCamera() as picam:
                 picam.start_preview()
-                sleep(waitTime)
+                sleep(CAMERA_WAIT_TIME)
                 picam.stop_preview()
                 picam.capture(outFile)
     else:
