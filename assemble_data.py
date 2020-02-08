@@ -2,17 +2,16 @@ from time import sleep
 from datetime import datetime
 import yaml
 import os
-import camera_capture 
+import camera_capture as cam
 
 remoteName = "gdrive"
 image_storage_directory = os.environ['HOME'] + "/Pictures/plant_data"
 
 def setupLocalDir(parentDir, timeStamp):
    fullPath = parentDir + "/" + timeStamp
-    #try:
-    if not os.path.exists(fullPath):
-        os.makedirs(fullPath)
-        return(fullPath + "/")
+   if not os.path.exists(fullPath):
+       os.makedirs(fullPath)
+       return(fullPath + "/")
         
 def generateMetaData(metadata, timeStamp, filename):
     metadata["Picture taken"] = timeStamp
@@ -20,7 +19,7 @@ def generateMetaData(metadata, timeStamp, filename):
         yaml.dump(metadata, outfile, default_flow_style=False)
 
 def uploadData(source, dest):
-    rclone = "rclone copy " + source + " " + remoteName + ":" + dest
+    rclone = "rclone copy " + source + " " + remoteName + ":" + dest #TODO: Add error checking for rclone command
     os.system(rclone)
 
 def captureImage(metadata):
@@ -30,7 +29,7 @@ def captureImage(metadata):
     localDir = setupLocalDir(image_storage_directory, timeStamp)
     infoPath = localDir + 'info.yml'
     generateMetaData(metadata, timeStamp, infoPath)
-    takePicture(localDir)
+    cam.takePicture(localDir)
 
     remoteDir = "Phenotyping/plant_data/" + metadata['Experiment Number'] + "/" + timeStamp
     uploadData(localDir, remoteDir)
