@@ -85,7 +85,7 @@ def addexp():
 def top_view():
     if request.method =="POST":
         print("Route triggered")
-        camera_capture.preview_camera(5, 1)
+        camera_capture.preview_camera(15, 1)
     return ('', 204) # 204 means no content. This seems to be the only code that doesn't change the page
  
 
@@ -93,14 +93,14 @@ def top_view():
 def side_view1():
     if request.method =="POST":
         print("Route triggered")
-        camera_capture.preview_camera(5, 2)
+        camera_capture.preview_camera(15, 2)
     return ('', 204)
  
 @app.route("/preview_side2", methods=['POST'])
 def side_view2():
     if request.method =="POST":
         print("Route triggered")
-        camera_capture.preview_camera(5, 3)
+        camera_capture.preview_camera(15, 3)
     return ('', 204)
  
 
