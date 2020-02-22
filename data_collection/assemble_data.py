@@ -2,7 +2,7 @@ from time import sleep
 from datetime import datetime
 import yaml
 import os
-import camera_capture as cam
+from data_collection import camera_capture as cam
 
 remoteName = "gdrive"
 image_storage_directory = os.environ['HOME'] + "/Pictures/plant_data"

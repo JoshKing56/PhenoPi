@@ -3,9 +3,8 @@ from flask_wtf import Form
 from wtforms import TextField, SubmitField
 from wtforms import validators, ValidationError
 import os
-import assemble_data
-import camera_capture
-import experiments 
+from data_collection import assemble_data, camera_capture
+from experiments import experiment_form
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(32)
@@ -26,17 +25,17 @@ class AddExpForm(MetaDataForm):
 def index():
     print("Got here?")
     form = MetaDataForm()
-    expList = experiments.getExperimentList() 
+    expList = experiment_form.getExperimentList() 
   	
     if request.method == "POST":
     	if "first" in request.form:
-    		experimentData = experiments.loadExperiment("first")
+    		experimentData = experiment_form.loadExperiment("first")
 
     	elif "second" in request.form:
-    		experimentData = experiments.loadExperiment("second")
+    		experimentData = experiment_form.loadExperiment("second")
 
     	elif "third" in request.form:
-    		experimentData = experiments.loadExperiment("third")
+    		experimentData = experiment_form.loadExperiment("third")
 
     	form.user.data = experimentData["User"]
     	form.experiment.data = experimentData["Experiment Number"]
@@ -76,9 +75,9 @@ def addexp():
                 'Condition': request.form.get('condition') 
         }
         savename = request.form.get('savename')
-        experiments.addExperiment(savename, experiment)
-        expList = experiments.getExperimentList()
-        return render_template('display.html', buttons = experiments.getExperimentList(), form = MetaDataForm())
+        experiment_form.addExperiment(savename, experiment)
+        expList = experiment_form.getExperimentList()
+        return render_template('display.html', buttons = experiment_form.getExperimentList(), form = MetaDataForm())
 
     return render_template('addexperiment.html', form = form)
 
@@ -95,14 +94,14 @@ def side_view1():
     if request.method =="POST":
         print("Route triggered")
         camera_capture.preview_camera(5, 2)
-    return ('', 200)
+    return ('', 204)
  
 @app.route("/preview_side2", methods=['POST'])
 def side_view2():
     if request.method =="POST":
         print("Route triggered")
         camera_capture.preview_camera(5, 3)
-    return ('', 200)
+    return ('', 204)
  
 
 if __name__ == "__main__":
