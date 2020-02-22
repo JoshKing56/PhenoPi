@@ -1,4 +1,5 @@
 import os
+import time
 running_on_pi = True
 CAMERA_WAIT_TIME = 2
 
@@ -49,8 +50,21 @@ def takePicture(outDirectory):
             switchCamera(cameraNum)
             with PiCamera() as picam:
                 picam.start_preview()
-                sleep(CAMERA_WAIT_TIME)
+                time.sleep(CAMERA_WAIT_TIME)
                 picam.stop_preview()
                 picam.capture(outFile)
     else:
         print("Assuming camera hardware works...")
+
+def preview_camera(preview_seconds, cameraNum): #TODO: Figure out why this isn't working
+   
+    if (running_on_pi):
+        switchCamera(cameraNum)
+        with PiCamera() as picam:
+            picam.start_preview()
+            time.sleep(preview_seconds)
+            picam.stop_preview()
+    else:
+        print(f"Assuming camera hardware works...\n Previewing camera {cameraNum} for {preview_seconds} seconds")
+        time.sleep(preview_seconds)
+        print("Done")

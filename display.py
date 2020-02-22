@@ -4,6 +4,7 @@ from wtforms import TextField, SubmitField
 from wtforms import validators, ValidationError
 import os
 import assemble_data
+import camera_capture
 import experiments 
 
 app = Flask(__name__)
@@ -23,28 +24,29 @@ class AddExpForm(MetaDataForm):
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-	form = MetaDataForm()
-	expList = experiments.getExperimentList() 
+    print("Got here?")
+    form = MetaDataForm()
+    expList = experiments.getExperimentList() 
   	
-	if request.method == "POST":
-		if "first" in request.form:
-			experimentData = experiments.loadExperiment("first")
+    if request.method == "POST":
+    	if "first" in request.form:
+    		experimentData = experiments.loadExperiment("first")
 
-		elif "second" in request.form:
-			experimentData = experiments.loadExperiment("second")
+    	elif "second" in request.form:
+    		experimentData = experiments.loadExperiment("second")
 
-		elif "third" in request.form:
-			experimentData = experiments.loadExperiment("third")
+    	elif "third" in request.form:
+    		experimentData = experiments.loadExperiment("third")
 
-		form.user.data = experimentData["User"]
-		form.experiment.data = experimentData["Experiment Number"]
-		form.species.data = experimentData["Plant Species"]
-		form.genotype.data = experimentData['Plant Genotype']
-		form.plant.data = experimentData['Plant Number']
-		form.condition.data = experimentData['Condition']
-		return render_template('display.html', buttons = expList, form = form)
-		
-	return render_template('display.html', buttons = expList, form = form)
+    	form.user.data = experimentData["User"]
+    	form.experiment.data = experimentData["Experiment Number"]
+    	form.species.data = experimentData["Plant Species"]
+    	form.genotype.data = experimentData['Plant Genotype']
+    	form.plant.data = experimentData['Plant Number']
+    	form.condition.data = experimentData['Condition']
+    	return render_template('display.html', buttons = expList, form = form)
+    
+    return render_template('display.html', buttons = expList, form = form)
 
 @app.route("/picture", methods=['GET', 'POST'])
 def takePicture():
@@ -79,6 +81,29 @@ def addexp():
         return render_template('display.html', buttons = experiments.getExperimentList(), form = MetaDataForm())
 
     return render_template('addexperiment.html', form = form)
+
+@app.route("/top_view", methods=['POST'])
+def top_view():
+    if request.method =="POST":
+        print("Route triggered")
+        camera_capture.preview_camera(5, 1)
+    return ('', 204) # 204 means no content. This seems to be the only code that doesn't change the page
+ 
+
+@app.route("/preview_side1", methods=['POST'])
+def side_view1():
+    if request.method =="POST":
+        print("Route triggered")
+        camera_capture.preview_camera(5, 2)
+    return ('', 200)
+ 
+@app.route("/preview_side2", methods=['POST'])
+def side_view2():
+    if request.method =="POST":
+        print("Route triggered")
+        camera_capture.preview_camera(5, 3)
+    return ('', 200)
+ 
 
 if __name__ == "__main__":
     app.run(debug=True)
