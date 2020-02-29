@@ -26,18 +26,18 @@
       
           <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <ul class="nav navbar-nav">
-		    <li class="active"><a href= {{ url_for('addexp') }}>Add Default Experiment</a></li>
+		    <li><a href= {{ url_for('addexp') }}>Add Default Experiment</a></li>
               <li><a href="https://github.com/JoshKing56/PhenoPi">About the project</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a>User: Josh</a></li>
+              <li><a href="http://www.jaycedesign.ie">Software by Jayce Design</a></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Preview Cameras <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Options</a></li>
-                  <li><a href="#">Coming soon....</a></li>
+                  <li><form action={{ url_for('top_view') }} method="POST"> <button type="submit" class="btn btn-link">Preview top view</button> </form></li>
+                  <li><form action={{ url_for('side_view1') }} method="POST"> <button type="submit" class="btn btn-link">Preview side view 1</button> </form></li>
+                  <li><form action={{ url_for('side_view2') }} method="POST"> <button type="submit" class="btn btn-link">Preview side view 2</button> </form></li>
                   <li class="divider"></li>
-                  <li><a href="http://www.jaycedesign.ie">Software by Jayce Design</a></li>
                 </ul>
               </li>
             </ul>
